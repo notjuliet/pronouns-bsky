@@ -19,6 +19,7 @@ export const PRONOUNS: Record<string, string> = {
   "shey/sheir/sher": "shey",
   "voi/void": "voi",
   "mew/mews": "mew",
+  "paw/paws": "paw",
 };
 
 export const URIs: Record<string, string> = {
@@ -60,6 +61,8 @@ export const URIs: Record<string, string> = {
     "voi/void",
   "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kwueewr2p22j":
     "mew/mews",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kwukwwz4nt2j":
+    "paw/paws",
 };
 
 export const DID = process.env.DID ?? "";

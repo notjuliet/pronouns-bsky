@@ -22,20 +22,19 @@ const subscribe = async () => {
     }, 60000);
   });
 
-  firehose.on("commit", (commit) => {
+  firehose.on("commit", async (commit) => {
     cursorSave = commit.seq;
-    for (const op of commit.ops) {
-      if (op.action === "delete") continue;
-      if (AppBskyFeedLike.isRecord(op.record)) {
+    commit.ops.forEach(async (op) => {
+      if (op.action !== "delete" && AppBskyFeedLike.isRecord(op.record)) {
         if ((op.record.subject.uri ?? "").includes(DID)) {
           if ((op.record.subject.uri ?? "").includes("app.bsky.feed.post")) {
-            label(agent, commit.repo, op.record.subject.uri).catch((err) =>
-              console.error(err),
+            await label(agent, commit.repo, op.record.subject.uri).catch(
+              (err) => console.error(err),
             );
           }
         }
       }
-    }
+    });
   });
 
   firehose.start();
