@@ -13,7 +13,7 @@ const subscribe = async () => {
   //const firehose = new Firehose({ cursor: "760303563" });
   const firehose = new Firehose();
 
-  firehose.on("error", async ({ cursor }) => {
+  firehose.on("error", ({ cursor }) => {
     console.log(`Firehose errored on cursor: ${cursor}`);
   });
 
