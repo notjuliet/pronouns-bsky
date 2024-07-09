@@ -7,28 +7,24 @@ import "dotenv/config";
 
 const subscribe = async () => {
   const agent = await getAgent();
+  let cursorSave = 0;
 
   // add firehose cursor save
+  //const firehose = new Firehose({ cursor: "760303563" });
   const firehose = new Firehose();
 
-  firehose.on("error", ({ cursor }) => {
-    agent.api.chat.bsky.convo.sendMessage(
-      {
-        convoId: process.env.CONVO_ID ?? "",
-        message: {
-          text: `Firehose errored on cursor: ${cursor}`,
-        },
-      },
-      {
-        encoding: "application/json",
-        headers: {
-          "atproto-proxy": "did:web:api.bsky.chat#bsky_chat",
-        },
-      },
-    );
+  firehose.on("error", async ({ cursor }) => {
+    console.log(`Firehose errored on cursor: ${cursor}`);
+  });
+
+  firehose.on("open", () => {
+    setInterval(() => {
+      console.log(`cursor: ${cursorSave}`);
+    }, 60000);
   });
 
   firehose.on("commit", (commit) => {
+    cursorSave = commit.seq;
     for (const op of commit.ops) {
       if (op.action === "delete") continue;
       if (AppBskyFeedLike.isRecord(op.record)) {

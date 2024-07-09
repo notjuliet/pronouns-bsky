@@ -10,7 +10,11 @@ export const label = async (
   const repo = await agent
     .withProxy("atproto_labeler", DID)
     .api.tools.ozone.moderation.getRepo({ did: did })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log({
+        error: err,
+      });
+    });
 
   if (!repo) return;
 
@@ -33,7 +37,12 @@ export const label = async (
         createdAt: new Date().toISOString(),
         subjectBlobCids: [],
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log({
+          error: err,
+        });
+      })
+      .then(() => console.log(`Deleted labels for ${did}`));
     return;
   }
 
@@ -56,7 +65,11 @@ export const label = async (
         createdAt: new Date().toISOString(),
         subjectBlobCids: [],
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log({
+          error: err,
+        });
+      })
       .then(() => console.log(`Labeled ${did} with ${post}`));
   }
 };
