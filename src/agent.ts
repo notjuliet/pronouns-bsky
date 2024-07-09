@@ -6,6 +6,11 @@ export const getAgent = async () => {
     service: process.env.BSKY_SERVICE ?? "https://bsky.social",
   });
 
+  await agent.login({
+    identifier: process.env.BSKY_IDENTIFIER!,
+    password: process.env.BSKY_PASSWORD!,
+  });
+
   return agent;
 };
 

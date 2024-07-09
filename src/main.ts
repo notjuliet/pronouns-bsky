@@ -7,14 +7,14 @@ import { DID } from "./constants.js";
 const subscribe = async () => {
   const agent = await getAgent();
 
-  //const firehose = new Firehose("wss://bsky.network", { cursor: "759324067" });
-  const firehose = new Firehose();
+  // add firehose cursor save
+  const firehose = new Firehose({ cursor: "759165458" });
   firehose.on("commit", (commit) => {
     for (const op of commit.ops) {
       if (op.action === "delete") continue;
       if (AppBskyFeedLike.isRecord(op.record)) {
-        if (op.record.subject.uri.includes(DID)) {
-          if (op.record.subject.uri.includes("app.bsky.feed.post")) {
+        if ((op.record.subject.uri ?? "").includes(DID)) {
+          if ((op.record.subject.uri ?? "").includes("app.bsky.feed.post")) {
             label(agent, commit.repo, op.record.subject.uri).catch((err) =>
               console.error(err),
             );

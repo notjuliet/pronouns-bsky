@@ -8,7 +8,7 @@ export const label = async (agent: BskyAgent, subject: string, uri: string) => {
 
   const post = URIs[uri];
 
-  if (repo.data.labels && post.includes("Like this post to delete")) {
+  if (repo.data.labels && (post ?? "").includes("Like this post to delete")) {
     await agent
       .withProxy("atproto_labeler", DID)
       .api.tools.ozone.moderation.emitEvent({
