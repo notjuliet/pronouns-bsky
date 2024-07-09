@@ -1,10 +1,18 @@
-import { BskyAgent } from "@atproto/api";
+import { AppBskyActorDefs, BskyAgent } from "@atproto/api";
 import { DID, PRONOUNS, URIs } from "./constants.js";
 
-export const label = async (agent: BskyAgent, subject: string, uri: string) => {
+export const label = async (
+  agent: BskyAgent,
+  subject: string | AppBskyActorDefs.ProfileView,
+  uri: string,
+) => {
+  const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
   const repo = await agent
     .withProxy("atproto_labeler", DID)
-    .api.tools.ozone.moderation.getRepo({ did: subject });
+    .api.tools.ozone.moderation.getRepo({ did: did })
+    .catch((err) => console.log(err));
+
+  if (!repo) return;
 
   const post = URIs[uri];
 
@@ -19,12 +27,13 @@ export const label = async (agent: BskyAgent, subject: string, uri: string) => {
         },
         subject: {
           $type: "com.atproto.admin.defs#repoRef",
-          did: subject,
+          did: did,
         },
         createdBy: agent.session!.did,
         createdAt: new Date().toISOString(),
         subjectBlobCids: [],
-      });
+      })
+      .catch((err) => console.log(err));
     return;
   }
 
@@ -41,12 +50,13 @@ export const label = async (agent: BskyAgent, subject: string, uri: string) => {
         },
         subject: {
           $type: "com.atproto.admin.defs#repoRef",
-          did: subject,
+          did: did,
         },
         createdBy: agent.session!.did,
         createdAt: new Date().toISOString(),
         subjectBlobCids: [],
       })
-      .then(() => console.log(`Labeled ${subject} with ${post}`));
+      .catch((err) => console.log(err))
+      .then(() => console.log(`Labeled ${did} with ${post}`));
   }
 };

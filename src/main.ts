@@ -3,12 +3,31 @@ import { Firehose } from "@skyware/firehose";
 import { getAgent } from "./agent.js";
 import { label } from "./label.js";
 import { DID } from "./constants.js";
+import "dotenv/config";
 
 const subscribe = async () => {
   const agent = await getAgent();
 
   // add firehose cursor save
-  const firehose = new Firehose({ cursor: "759165458" });
+  const firehose = new Firehose();
+
+  firehose.on("error", ({ cursor }) => {
+    agent.api.chat.bsky.convo.sendMessage(
+      {
+        convoId: process.env.CONVO_ID ?? "",
+        message: {
+          text: `Firehose errored on cursor: ${cursor}`,
+        },
+      },
+      {
+        encoding: "application/json",
+        headers: {
+          "atproto-proxy": "did:web:api.bsky.chat#bsky_chat",
+        },
+      },
+    );
+  });
+
   firehose.on("commit", (commit) => {
     for (const op of commit.ops) {
       if (op.action === "delete") continue;
