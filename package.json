@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "npx tsx src/main.ts",
+    "dev": "npx tsx --watch src/main.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "@atproto/api": "^0.12.23",
+    "@skyware/firehose": "^0.1.5",
+    "dotenv": "^16.4.5"
+  }
+}
