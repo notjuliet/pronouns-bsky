@@ -1,9 +1,11 @@
 import { AppBskyFeedLike } from "@atproto/api";
 import { Firehose } from "@skyware/firehose";
-import { did } from "./agent.js";
+import { did, getAgent } from "./agent.js";
 import { label } from "./label.js";
 
 const subscribe = async () => {
+  const agent = await getAgent();
+
   const firehose = new Firehose();
   firehose.on("commit", (commit) => {
     for (const op of commit.ops) {
@@ -11,8 +13,8 @@ const subscribe = async () => {
       if (AppBskyFeedLike.isRecord(op.record)) {
         if (op.record.subject.uri.includes(did)) {
           if (op.record.subject.uri.includes("app.bsky.feed.post")) {
-            label(commit.repo, op.record.subject.uri).catch((err) =>
-              console.error(err.message),
+            label(agent, commit.repo, op.record.subject.uri).catch((err) =>
+              console.error(err),
             );
           }
         }

@@ -1,4 +1,4 @@
-import { did, getAgent } from "./agent.js";
+import { did } from "./agent.js";
 import { AppBskyFeedPost, BskyAgent } from "@atproto/api";
 import { PRONOUNS } from "./constants.js";
 
@@ -15,9 +15,7 @@ const getPostContent = async (agent: BskyAgent, uri: string) => {
     });
 };
 
-export const label = async (subject: string, uri: string) => {
-  const agent = await getAgent();
-
+export const label = async (agent: BskyAgent, subject: string, uri: string) => {
   const repo = await agent
     .withProxy("atproto_labeler", did)
     .api.tools.ozone.moderation.getRepo({ did: subject });
