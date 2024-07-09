@@ -9,9 +9,8 @@ const subscribe = async () => {
   const agent = await getAgent();
   let cursorSave = 0;
 
-  // add firehose cursor save
-  //const firehose = new Firehose({ cursor: "760303563" });
-  const firehose = new Firehose();
+  // TODO: save cursor to a file
+  const firehose = new Firehose({ cursor: process.env.CURSOR ?? "" });
 
   firehose.on("error", ({ cursor }) => {
     console.log(`Firehose errored on cursor: ${cursor}`);
