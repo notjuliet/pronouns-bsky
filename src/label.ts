@@ -4,9 +4,15 @@ import { DID, PRONOUNS, URIs } from "./constants.js";
 export const label = async (
   agent: BskyAgent,
   subject: string | AppBskyActorDefs.ProfileView,
-  uri: string,
+  uri: string
 ) => {
-  const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
+  let did = "";
+  if (AppBskyActorDefs.isProfileView(subject)) {
+    did = subject.did;
+  } else {
+    did = subject;
+  }
+
   const repo = await agent
     .withProxy("atproto_labeler", DID)
     .api.tools.ozone.moderation.getRepo({ did: did })
