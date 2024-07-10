@@ -1,4 +1,6 @@
 {
+  "name": "pronouns-bsky",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "start": "npx tsx src/main.ts",
