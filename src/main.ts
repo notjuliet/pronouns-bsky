@@ -20,6 +20,8 @@ const subscribe = async () => {
 
   firehose.on("open", () => {
     setInterval(() => {
+      const timestamp = new Date().toISOString();
+      console.log(`${timestamp} cursor: ${cursorFirehose}`);
       fs.writeFile("cursor.txt", cursorFirehose.toString(), (err) => {
         if (err) console.error(err);
       });
