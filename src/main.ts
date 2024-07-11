@@ -3,27 +3,31 @@ import { Firehose } from "@skyware/firehose";
 import { getAgent } from "./agent.js";
 import { label } from "./label.js";
 import { DID } from "./constants.js";
-import "dotenv/config";
+import fs from "node:fs";
 
 const subscribe = async () => {
   const agent = await getAgent();
-  let cursorSave = 0;
 
-  // TODO: save cursor to a file
-  const firehose = new Firehose({ cursor: process.env.CURSOR ?? "" });
+  let cursorFirehose = 0;
+  let cursorFile = fs.readFileSync("cursor.txt", "utf8");
 
-  firehose.on("error", ({ cursor }) => {
-    console.log(`Firehose errored on cursor: ${cursor}`);
+  const firehose = new Firehose({ cursor: cursorFile ?? "" });
+  if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
+
+  firehose.on("error", ({ cursor, error }) => {
+    console.log(`Firehose errored on cursor: ${cursor}`, error);
   });
 
   firehose.on("open", () => {
     setInterval(() => {
-      console.log(`cursor: ${cursorSave}`);
+      fs.writeFile("cursor.txt", cursorFirehose.toString(), (err) => {
+        if (err) console.error(err);
+      });
     }, 60000);
   });
 
   firehose.on("commit", async (commit) => {
-    cursorSave = commit.seq;
+    cursorFirehose = commit.seq;
     commit.ops.forEach(async (op) => {
       if (op.action !== "delete" && AppBskyFeedLike.isRecord(op.record)) {
         if ((op.record.subject.uri ?? "").includes(DID)) {

@@ -11,9 +11,7 @@ export const label = async (
     .withProxy("atproto_labeler", DID)
     .api.tools.ozone.moderation.getRepo({ did: did })
     .catch((err) => {
-      console.log({
-        error: err,
-      });
+      console.log(err);
     });
 
   if (!repo) return;
@@ -38,9 +36,7 @@ export const label = async (
         subjectBlobCids: [],
       })
       .catch((err) => {
-        console.log({
-          error: err,
-        });
+        console.log(err);
       })
       .then(() => console.log(`Deleted labels for ${did}`));
     return;
@@ -66,9 +62,7 @@ export const label = async (
         subjectBlobCids: [],
       })
       .catch((err) => {
-        console.log({
-          error: err,
-        });
+        console.log(err);
       })
       .then(() => console.log(`Labeled ${did} with ${post}`));
   }
