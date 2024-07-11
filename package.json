@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@atproto/api": "^0.12.23",
-    "@skyware/firehose": "^0.2.0",
+    "@skyware/firehose": "^0.3.0",
     "dotenv": "^16.4.5"
   }
 }

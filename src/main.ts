@@ -9,6 +9,7 @@ const subscribe = async () => {
   const agent = await getAgent();
 
   let cursorFirehose = 0;
+  let oldCursor = 0;
   let cursorFile = fs.readFileSync("cursor.txt", "utf8");
 
   const firehose = new Firehose({ cursor: cursorFile ?? "" });
@@ -20,6 +21,11 @@ const subscribe = async () => {
 
   firehose.on("open", () => {
     setInterval(() => {
+      if (oldCursor && oldCursor == cursorFirehose) {
+        firehose.close();
+        subscribe();
+      }
+      oldCursor = cursorFirehose;
       const timestamp = new Date().toISOString();
       console.log(`${timestamp} cursor: ${cursorFirehose}`);
       fs.writeFile("cursor.txt", cursorFirehose.toString(), (err) => {
