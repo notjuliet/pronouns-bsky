@@ -27,10 +27,12 @@ export const PRONOUNS: Record<string, string> = {
   "ze/hir": "ze",
   "dey/deren": "dey",
   none: "none",
-  "e/em/er": "e2",
+  "e/em/er": "e-em-er",
   "xier/xies": "xier",
-  "sier/sies": "sier2",
+  "sier/sies": "sier-sies",
   "ens/ens": "ens",
+  "squee/squir": "squee",
+  "vi/vix": "vi",
 };
 
 export const URIs: Record<string, string> = {
@@ -96,6 +98,10 @@ export const URIs: Record<string, string> = {
     "sier/sies",
   "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kx22bkmnco2t":
     "ens/ens",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kx45q2fq372f":
+    "squee/squir",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kx4puqpu5q2j":
+    "vi/vix",
 };
 
 export const DID = process.env.DID ?? "";
