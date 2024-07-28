@@ -33,6 +33,14 @@ export const PRONOUNS: Record<string, string> = {
   "ens/ens": "ens",
   "squee/squir": "squee",
   "vi/vix": "vi",
+  "ne/nem/nir": "ne-nem-nir",
+  "ze/zim": "ze-zim",
+  "pup/pups/pupself": "pup-pups-pupself",
+  "zi/zir": "zi-zir",
+  "he/haw": "he-haw",
+  "hee/haw": "hee-haw",
+  "zhi/zhr": "zhi-zhr",
+  "ve/ver": "ve-ver",
 };
 
 export const URIs: Record<string, string> = {
@@ -102,6 +110,22 @@ export const URIs: Record<string, string> = {
     "squee/squir",
   "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kx4puqpu5q2j":
     "vi/vix",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kxntgh45yy2j":
+    "ne/nem/nir",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kxqmnktb532k":
+    "ze/zim",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kxsppngl4e2a":
+    "pup/pups/pupself",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kxvjiundpz2r":
+    "zi/zir",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kxvjixhmhh2g":
+    "he/haw",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kxwujilwty2m":
+    "hee/haw",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3kxy7b27dke2w":
+    "zhi/zhr",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3ky7xcoqkza2q":
+    "ve/ver",
 };
 
 export const DID = process.env.DID ?? "";
