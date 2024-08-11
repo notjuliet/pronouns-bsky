@@ -9,7 +9,7 @@ const subscribe = async () => {
   const agent = await getAgent();
 
   let cursorFirehose = 0;
-  let cursorFile = fs.readFileSync("cursor.txt", "utf8");
+  const cursorFile = fs.readFileSync("cursor.txt", "utf8");
 
   const firehose = new Firehose({ cursor: cursorFile ?? "" });
   if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
