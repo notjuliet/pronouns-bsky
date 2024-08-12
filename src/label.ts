@@ -1,15 +1,15 @@
-import { AppBskyActorDefs, BskyAgent } from "@atproto/api";
+import { AppBskyActorDefs, Agent } from "@atproto/api";
 import { DID, PRONOUNS, URIs } from "./constants.js";
 
 export const label = async (
-  agent: BskyAgent,
+  agent: Agent,
   subject: string | AppBskyActorDefs.ProfileView,
   uri: string,
 ) => {
   const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
   const repo = await agent
     .withProxy("atproto_labeler", DID)
-    .api.tools.ozone.moderation.getRepo({ did: did })
+    .tools.ozone.moderation.getRepo({ did: did })
     .catch((err) => {
       console.log(err);
     });
@@ -21,7 +21,7 @@ export const label = async (
   if (repo.data.labels && (post ?? "").includes("Like this post to delete")) {
     await agent
       .withProxy("atproto_labeler", DID)
-      .api.tools.ozone.moderation.emitEvent({
+      .tools.ozone.moderation.emitEvent({
         event: {
           $type: "tools.ozone.moderation.defs#modEventLabel",
           createLabelVals: [],
@@ -31,7 +31,7 @@ export const label = async (
           $type: "com.atproto.admin.defs#repoRef",
           did: did,
         },
-        createdBy: agent.session!.did,
+        createdBy: agent.did!,
         createdAt: new Date().toISOString(),
         subjectBlobCids: [],
       })
@@ -57,7 +57,7 @@ export const label = async (
           $type: "com.atproto.admin.defs#repoRef",
           did: did,
         },
-        createdBy: agent.session!.did,
+        createdBy: agent.did!,
         createdAt: new Date().toISOString(),
         subjectBlobCids: [],
       })
