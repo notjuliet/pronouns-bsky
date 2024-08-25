@@ -49,7 +49,7 @@ export const PRONOUNS: Record<string, string> = {
   "sun/suns": "sun-suns",
   "leaf/leafs": "leaf-leafs",
   "shiv/ver": "shiv-ver",
-  "ferret/ferrets/ferretself": "ferret-ferrets",
+  "drüsshe/drayr": "drusshe-drayr",
 };
 
 export const URIs: Record<string, string> = {
@@ -153,6 +153,8 @@ export const URIs: Record<string, string> = {
     "shiv/ver",
   "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3l2jb2koecj27":
     "ferret/ferrets/ferretself",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3l2kx6qwefk2h":
+    "drüsshe/drayr",
 };
 
 export const DID = process.env.DID ?? "";
