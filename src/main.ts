@@ -2,8 +2,19 @@ import { AppBskyFeedLike } from "@atproto/api";
 import { Firehose } from "@skyware/firehose";
 import { getAgent } from "./agent.js";
 import { label } from "./label.js";
-import { DID } from "./constants.js";
+import { DID, SIGNING_KEY } from "./constants.js";
 import fs from "node:fs";
+import { LabelerServer } from "@skyware/labeler";
+
+const server = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
+
+server.start(4001, (error, address) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(`Labeler server listening on ${address}`);
+  }
+});
 
 const subscribe = async () => {
   const agent = await getAgent();

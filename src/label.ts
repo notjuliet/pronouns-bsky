@@ -7,25 +7,25 @@ export const label = async (
   uri: string,
 ) => {
   const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
-  const repo = await agent
+  const labels = await agent
     .withProxy("atproto_labeler", DID)
-    .tools.ozone.moderation.getRepo({ did: did })
+    .com.atproto.label.queryLabels({ sources: [DID], uriPatterns: [did] })
     .catch((err) => {
       console.log(err);
     });
 
-  if (!repo) return;
+  if (!labels) return;
 
   const post = URIs[uri];
 
-  if (repo.data.labels && (post ?? "").includes("Like this post to delete")) {
+  if ((post ?? "").includes("Like this post to delete")) {
     await agent
       .withProxy("atproto_labeler", DID)
       .tools.ozone.moderation.emitEvent({
         event: {
           $type: "tools.ozone.moderation.defs#modEventLabel",
           createLabelVals: [],
-          negateLabelVals: repo.data.labels.map((label) => label.val),
+          negateLabelVals: labels.data.labels.map((label) => label.val),
         },
         subject: {
           $type: "com.atproto.admin.defs#repoRef",
@@ -42,12 +42,12 @@ export const label = async (
     return;
   }
 
-  if (repo.data.labels && repo.data.labels.length >= 4) return;
+  if (labels.data.labels.length >= 4) return;
 
   if (PRONOUNS[post]) {
     await agent
       .withProxy("atproto_labeler", DID)
-      .api.tools.ozone.moderation.emitEvent({
+      .tools.ozone.moderation.emitEvent({
         event: {
           $type: "tools.ozone.moderation.defs#modEventLabel",
           createLabelVals: [PRONOUNS[post]],
