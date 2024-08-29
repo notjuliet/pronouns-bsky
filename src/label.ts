@@ -40,7 +40,15 @@ export const label = async (
     return;
   }
 
-  if (labels && labels.data.labels.length >= 4) return;
+  if (labels) {
+    const labelCount = labels.data.labels.reduce((set, label) => {
+      if (!label.neg) set.add(label.val);
+      else set.delete(label.val);
+      return set;
+    }, new Set()).size;
+
+    if (labelCount >= 4) return;
+  }
 
   if (PRONOUNS[post]) {
     await agent
