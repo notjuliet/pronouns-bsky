@@ -18,7 +18,7 @@ export const label = async (
 
   const post = URIs[uri];
 
-  if ((post ?? "").includes("Like this post to delete")) {
+  if (post?.includes("Like this post to delete")) {
     await agent
       .withProxy("atproto_labeler", DID)
       .tools.ozone.moderation.emitEvent({
