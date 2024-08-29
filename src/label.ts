@@ -14,11 +14,9 @@ export const label = async (
       console.log(err);
     });
 
-  if (!labels) return;
-
   const post = URIs[uri];
 
-  if (post?.includes("Like this post to delete")) {
+  if (labels && post?.includes("Like this post to delete")) {
     await agent
       .withProxy("atproto_labeler", DID)
       .tools.ozone.moderation.emitEvent({
@@ -42,7 +40,7 @@ export const label = async (
     return;
   }
 
-  if (labels.data.labels.length >= 4) return;
+  if (labels && labels.data.labels.length >= 4) return;
 
   if (PRONOUNS[post]) {
     await agent
