@@ -37,16 +37,7 @@ export const label = async (
         console.log(err);
       })
       .then(() => console.log(`Deleted labels for ${did}`));
-    return;
-  }
-
-  const labelCount = labels.data.labels.reduce((set, label) => {
-    if (!label.neg) set.add(label.val);
-    else set.delete(label.val);
-    return set;
-  }, new Set()).size;
-
-  if (labelCount < 4 && PRONOUNS[post]) {
+  } else if (labels.data.labels.length < 4 && PRONOUNS[post]) {
     await agent
       .withProxy("atproto_labeler", DID)
       .tools.ozone.moderation.emitEvent({
