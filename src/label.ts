@@ -13,10 +13,11 @@ export const label = async (
     .catch((err) => {
       console.log(err);
     });
+  if (!labels) return;
 
   const post = URIs[uri];
 
-  if (labels && post?.includes("Like this post to delete")) {
+  if (post?.includes("Like this post to delete")) {
     await agent
       .withProxy("atproto_labeler", DID)
       .tools.ozone.moderation.emitEvent({
@@ -40,17 +41,13 @@ export const label = async (
     return;
   }
 
-  if (labels) {
-    const labelCount = labels.data.labels.reduce((set, label) => {
-      if (!label.neg) set.add(label.val);
-      else set.delete(label.val);
-      return set;
-    }, new Set()).size;
+  const labelCount = labels.data.labels.reduce((set, label) => {
+    if (!label.neg) set.add(label.val);
+    else set.delete(label.val);
+    return set;
+  }, new Set()).size;
 
-    if (labelCount >= 4) return;
-  }
-
-  if (PRONOUNS[post]) {
+  if (labelCount < 4 && PRONOUNS[post]) {
     await agent
       .withProxy("atproto_labeler", DID)
       .tools.ozone.moderation.emitEvent({
