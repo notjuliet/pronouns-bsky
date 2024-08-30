@@ -7,9 +7,8 @@ export const label = async (
   uri: string,
 ) => {
   const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
-  const labels = await agent
-    .withProxy("atproto_labeler", DID)
-    .com.atproto.label.queryLabels({ sources: [DID], uriPatterns: [did] })
+  const labels = await agent.com.atproto.label
+    .queryLabels({ sources: [DID], uriPatterns: [did] })
     .catch((err) => {
       console.log(err);
     });
