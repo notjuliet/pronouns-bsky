@@ -50,6 +50,9 @@ export const PRONOUNS: Record<string, string> = {
   "leaf/leafs": "leaf-leafs",
   "shiv/ver": "shiv-ver",
   "drüsshe/drayr": "drusshe-drayr",
+  "frog/frogs": "frog-frogs",
+  "rat/rats": "rat-rats",
+  "shark/sharks": "shark-sharks",
 };
 
 export const URIs: Record<string, string> = {
@@ -155,6 +158,12 @@ export const URIs: Record<string, string> = {
     "ferret/ferrets/ferretself",
   "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3l2kx6qwefk2h":
     "drüsshe/drayr",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3l2xlzk6lrx2r":
+    "frog/frogs",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3l2xlzt6v5z2x":
+    "rat/rats",
+  "at://did:plc:wkoofae5uytcm7bjncmev6n6/app.bsky.feed.post/3l2zv7xcpq62u":
+    "shark/sharks",
 };
 
 export const DID = process.env.DID ?? "";
