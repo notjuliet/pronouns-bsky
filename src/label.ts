@@ -1,10 +1,12 @@
-import { AppBskyActorDefs } from "@atproto/api";
+import { AppBskyActorDefs, ComAtprotoLabelDefs } from "@atproto/api";
 import { DID, PRONOUNS, SIGNING_KEY, URIs } from "./constants.js";
 import { LabelerServer } from "@skyware/labeler";
-import { getAgent } from "./agent.js";
+import Database from "better-sqlite3";
 
 const server = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
-const agent = await getAgent();
+
+const db = new Database("labels.db");
+db.pragma("journal_mode = WAL");
 
 server.start(4001, (error, address) => {
   if (error) {
@@ -19,26 +21,30 @@ export const label = async (
   uri: string,
 ) => {
   const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
-  const labels = await agent.com.atproto.label
-    .queryLabels({ sources: [server.did], uriPatterns: [did] })
-    .catch((err) => {
-      console.log(err);
-    });
-  if (!labels) return;
+
+  const query = db
+    .prepare<
+      unknown[],
+      ComAtprotoLabelDefs.Label
+    >(`SELECT * FROM labels WHERE uri = ?`)
+    .all(did);
+
+  const labels = query.reduce((set, label) => {
+    if (!label.neg) set.add(label.val);
+    else set.delete(label.val);
+    return set;
+  }, new Set<string>());
 
   const post = URIs[uri];
 
   if (post?.includes("Like this post to delete")) {
     await server
-      .createLabels(
-        { uri: did },
-        { negate: labels.data.labels.map((label) => label.val) },
-      )
+      .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => {
         console.log(err);
       })
       .then(() => console.log(`Deleted labels for ${did}`));
-  } else if (labels.data.labels.length < 4 && PRONOUNS[post]) {
+  } else if (labels.size < 4 && PRONOUNS[post]) {
     await server
       .createLabel({
         src: server.did,
