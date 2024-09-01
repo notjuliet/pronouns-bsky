@@ -1,12 +1,8 @@
 import { AppBskyActorDefs, ComAtprotoLabelDefs } from "@atproto/api";
 import { DID, PRONOUNS, SIGNING_KEY, URIs } from "./constants.js";
 import { LabelerServer } from "@skyware/labeler";
-import Database from "better-sqlite3";
 
 const server = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
-
-const db = new Database("labels.db");
-db.pragma("journal_mode = WAL");
 
 server.start(4001, (error, address) => {
   if (error) {
@@ -22,7 +18,7 @@ export const label = async (
 ) => {
   const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
 
-  const query = db
+  const query = server.db
     .prepare<
       unknown[],
       ComAtprotoLabelDefs.Label
