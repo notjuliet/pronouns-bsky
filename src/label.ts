@@ -1,14 +1,26 @@
-import { AppBskyActorDefs, Agent } from "@atproto/api";
-import { DID, PRONOUNS, URIs } from "./constants.js";
+import { AppBskyActorDefs } from "@atproto/api";
+import { DID, PRONOUNS, SIGNING_KEY, URIs } from "./constants.js";
+import { LabelerServer } from "@skyware/labeler";
+import { getAgent } from "./agent.js";
+
+const server = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
+const agent = await getAgent();
+
+server.start(4001, (error, address) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(`Labeler server listening on ${address}`);
+  }
+});
 
 export const label = async (
-  agent: Agent,
   subject: string | AppBskyActorDefs.ProfileView,
   uri: string,
 ) => {
   const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
   const labels = await agent.com.atproto.label
-    .queryLabels({ sources: [DID], uriPatterns: [did] })
+    .queryLabels({ sources: [server.did], uriPatterns: [did] })
     .catch((err) => {
       console.log(err);
     });
@@ -17,42 +29,22 @@ export const label = async (
   const post = URIs[uri];
 
   if (post?.includes("Like this post to delete")) {
-    await agent
-      .withProxy("atproto_labeler", DID)
-      .tools.ozone.moderation.emitEvent({
-        event: {
-          $type: "tools.ozone.moderation.defs#modEventLabel",
-          createLabelVals: [],
-          negateLabelVals: labels.data.labels.map((label) => label.val),
-        },
-        subject: {
-          $type: "com.atproto.admin.defs#repoRef",
-          did: did,
-        },
-        createdBy: agent.did!,
-        createdAt: new Date().toISOString(),
-        subjectBlobCids: [],
-      })
+    await server
+      .createLabels(
+        { uri: did },
+        { negate: labels.data.labels.map((label) => label.val) },
+      )
       .catch((err) => {
         console.log(err);
       })
       .then(() => console.log(`Deleted labels for ${did}`));
   } else if (labels.data.labels.length < 4 && PRONOUNS[post]) {
-    await agent
-      .withProxy("atproto_labeler", DID)
-      .tools.ozone.moderation.emitEvent({
-        event: {
-          $type: "tools.ozone.moderation.defs#modEventLabel",
-          createLabelVals: [PRONOUNS[post]],
-          negateLabelVals: [],
-        },
-        subject: {
-          $type: "com.atproto.admin.defs#repoRef",
-          did: did,
-        },
-        createdBy: agent.did!,
-        createdAt: new Date().toISOString(),
-        subjectBlobCids: [],
+    await server
+      .createLabel({
+        src: server.did,
+        uri: did,
+        val: PRONOUNS[post],
+        cts: new Date().toISOString(),
       })
       .catch((err) => {
         console.log(err);
