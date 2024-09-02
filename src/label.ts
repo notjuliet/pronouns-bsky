@@ -31,7 +31,7 @@ export const label = async (
     return set;
   }, new Set<string>());
 
-  if (PRONOUNS[uri].post.includes("Like this post to delete")) {
+  if (PRONOUNS[uri].includes("delete")) {
     await server
       .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => {
@@ -43,12 +43,12 @@ export const label = async (
       .createLabel({
         src: server.did,
         uri: did,
-        val: PRONOUNS[uri].id!,
+        val: PRONOUNS[uri],
         cts: new Date().toISOString(),
       })
       .catch((err) => {
         console.log(err);
       })
-      .then(() => console.log(`Labeled ${did} with ${PRONOUNS[uri].post}`));
+      .then(() => console.log(`Labeled ${did} with ${PRONOUNS[uri]}`));
   }
 };
