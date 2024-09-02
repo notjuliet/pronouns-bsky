@@ -1,6 +1,8 @@
 import "dotenv/config";
 
-export const PRONOUNS: Record<string, string> = {
+export const DID = process.env.DID ?? "";
+export const SIGNING_KEY = process.env.SIGNING_KEY ?? "";
+export const POSTS: Record<string, string> = {
   "3kwsqucto3j2a": "delete",
   "3kwss4ldkwd2j": "they",
   "3kwss4fmiow2n": "it",
@@ -57,6 +59,3 @@ export const PRONOUNS: Record<string, string> = {
   "3l2zv7xcpq62u": "shark-sharks",
   "3l32xb7nvgh2x": "proper-nouns",
 };
-
-export const DID = process.env.DID ?? "";
-export const SIGNING_KEY = process.env.SIGNING_KEY ?? "";

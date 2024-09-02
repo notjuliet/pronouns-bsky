@@ -1,5 +1,5 @@
 import { AppBskyActorDefs, ComAtprotoLabelDefs } from "@atproto/api";
-import { DID, PRONOUNS, SIGNING_KEY } from "./constants.js";
+import { DID, POSTS, SIGNING_KEY } from "./constants.js";
 import { LabelerServer } from "@skyware/labeler";
 
 const server = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
@@ -31,24 +31,24 @@ export const label = async (
     return set;
   }, new Set<string>());
 
-  if (PRONOUNS[uri].includes("delete")) {
+  if (POSTS[uri].includes("delete")) {
     await server
       .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => {
         console.log(err);
       })
       .then(() => console.log(`Deleted labels for ${did}`));
-  } else if (labels.size < 4 && PRONOUNS[uri]) {
+  } else if (labels.size < 4 && POSTS[uri]) {
     await server
       .createLabel({
         src: server.did,
         uri: did,
-        val: PRONOUNS[uri],
+        val: POSTS[uri],
         cts: new Date().toISOString(),
       })
       .catch((err) => {
         console.log(err);
       })
-      .then(() => console.log(`Labeled ${did} with ${PRONOUNS[uri]}`));
+      .then(() => console.log(`Labeled ${did} with ${POSTS[uri]}`));
   }
 };
