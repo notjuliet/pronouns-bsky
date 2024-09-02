@@ -31,7 +31,7 @@ export const label = async (
     return set;
   }, new Set<string>());
 
-  if (POSTS[uri].includes("delete")) {
+  if (POSTS[uri]?.includes("delete")) {
     await server
       .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => {
