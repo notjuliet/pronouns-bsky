@@ -1,10 +1,10 @@
 import { AppBskyActorDefs, ComAtprotoLabelDefs } from "@atproto/api";
-import { DID, POSTS, SIGNING_KEY } from "./constants.js";
+import { DID, PORT, LABEL_LIMIT, POSTS, SIGNING_KEY } from "./constants.js";
 import { LabelerServer } from "@skyware/labeler";
 
 const server = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
 
-server.start(4001, (error, address) => {
+server.start(PORT, (error, address) => {
   if (error) {
     console.error(error);
   } else {
@@ -38,7 +38,7 @@ export const label = async (
         console.log(err);
       })
       .then(() => console.log(`Deleted labels for ${did}`));
-  } else if (labels.size < 4 && POSTS[uri]) {
+  } else if (labels.size < LABEL_LIMIT && POSTS[uri]) {
     await server
       .createLabel({ uri: did, val: POSTS[uri] })
       .catch((err) => {
