@@ -40,12 +40,7 @@ export const label = async (
       .then(() => console.log(`Deleted labels for ${did}`));
   } else if (labels.size < 4 && POSTS[uri]) {
     await server
-      .createLabel({
-        src: server.did,
-        uri: did,
-        val: POSTS[uri],
-        cts: new Date().toISOString(),
-      })
+      .createLabel({ uri: did, val: POSTS[uri] })
       .catch((err) => {
         console.log(err);
       })
