@@ -4,9 +4,9 @@ export const DID = process.env.DID ?? "";
 export const SIGNING_KEY = process.env.SIGNING_KEY ?? "";
 export const PORT = 4001;
 export const LABEL_LIMIT = 4;
-export const DELETE_POST = "delete";
+export const DELETE = "delete";
 export const POSTS: Record<string, string> = {
-  "3kwsqucto3j2a": "delete",
+  "3kwsqucto3j2a": DELETE,
   "3kwss4ldkwd2j": "they",
   "3kwss4fmiow2n": "it",
   "3kwss4bzqlw2k": "he",

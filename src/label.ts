@@ -5,7 +5,7 @@ import {
   LABEL_LIMIT,
   POSTS,
   SIGNING_KEY,
-  DELETE_POST,
+  DELETE,
 } from "./constants.js";
 import { LabelerServer } from "@skyware/labeler";
 
@@ -38,7 +38,7 @@ export const label = async (
     return set;
   }, new Set<string>());
 
-  if (POSTS[uri]?.includes(DELETE_POST)) {
+  if (POSTS[uri]?.includes(DELETE)) {
     await server
       .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => {
