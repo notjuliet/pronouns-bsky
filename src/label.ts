@@ -21,7 +21,7 @@ server.start(PORT, (error, address) => {
 
 export const label = async (
   subject: string | AppBskyActorDefs.ProfileView,
-  uri: string,
+  rkey: string,
 ) => {
   const did = AppBskyActorDefs.isProfileView(subject) ? subject.did : subject;
 
@@ -38,19 +38,19 @@ export const label = async (
     return set;
   }, new Set<string>());
 
-  if (POSTS[uri]?.includes(DELETE)) {
+  if (rkey.includes(DELETE)) {
     await server
       .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => {
         console.log(err);
       })
       .then(() => console.log(`Deleted labels for ${did}`));
-  } else if (labels.size < LABEL_LIMIT && POSTS[uri]) {
+  } else if (labels.size < LABEL_LIMIT && POSTS[rkey]) {
     await server
-      .createLabel({ uri: did, val: POSTS[uri] })
+      .createLabel({ uri: did, val: POSTS[rkey] })
       .catch((err) => {
         console.log(err);
       })
-      .then(() => console.log(`Labeled ${did} with ${POSTS[uri]}`));
+      .then(() => console.log(`Labeled ${did} with ${POSTS[rkey]}`));
   }
 };
