@@ -30,7 +30,7 @@ const subscribe = async () => {
     clearInterval(intervalID);
   });
 
-  firehose.on("commit", async (commit) => {
+  firehose.on("commit", (commit) => {
     cursorFirehose = commit.seq;
     commit.ops.forEach(async (op) => {
       if (op.action !== "delete" && AppBskyFeedLike.isRecord(op.record)) {
