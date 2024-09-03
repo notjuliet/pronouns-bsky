@@ -6,6 +6,7 @@ import fs from "node:fs";
 
 const subscribe = async () => {
   let cursorFirehose = 0;
+  let intervalID: NodeJS.Timeout;
   const cursorFile = fs.readFileSync("cursor.txt", "utf8");
 
   const firehose = new Firehose({ cursor: cursorFile ?? "" });
@@ -16,13 +17,17 @@ const subscribe = async () => {
   });
 
   firehose.on("open", () => {
-    setInterval(() => {
+    intervalID = setInterval(() => {
       const timestamp = new Date().toISOString();
       console.log(`${timestamp} cursor: ${cursorFirehose}`);
       fs.writeFile("cursor.txt", cursorFirehose.toString(), (err) => {
         if (err) console.error(err);
       });
     }, 60000);
+  });
+
+  firehose.on("close", () => {
+    clearInterval(intervalID);
   });
 
   firehose.on("commit", async (commit) => {
