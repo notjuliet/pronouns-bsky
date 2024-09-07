@@ -32,7 +32,7 @@ const subscribe = async () => {
     const event: EventStream = JSON.parse(data.toString());
     cursor = event.time_us;
     if (event.type.includes("com")) {
-      if (event.commit.record?.subject.uri.includes(DID)) {
+      if (event.commit?.record?.subject.uri.includes(DID)) {
         await label(
           event.did,
           event.commit.record.subject.uri.split("/").pop()!,
