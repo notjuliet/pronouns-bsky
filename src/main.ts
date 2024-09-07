@@ -10,6 +10,7 @@ const subscribe = async () => {
   const cursorFile = fs.readFileSync("cursor.txt", "utf8");
 
   const relay = cursorFile ? RELAY.concat("&cursor=", cursorFile) : RELAY;
+  if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
   const ws = new WebSocket(relay);
 
   ws.on("error", console.error);
