@@ -29,14 +29,14 @@ const subscribe = async () => {
     clearInterval(intervalID);
   });
 
-  ws.on("message", async (data) => {
+  ws.on("message", (data) => {
     const event: EventStream = JSON.parse(data.toString());
     cursor = event.time_us;
     if (
       event.type.includes("com") &&
       event.commit?.record?.subject.uri.includes(DID)
     ) {
-      await label(event.did, event.commit.record.subject.uri.split("/").pop()!);
+      label(event.did, event.commit.record.subject.uri.split("/").pop()!);
     }
   });
 };
