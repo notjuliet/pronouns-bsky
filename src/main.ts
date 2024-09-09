@@ -13,14 +13,12 @@ const subscribe = async () => {
   if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
   const ws = new WebSocket(relay);
 
-  ws.on("error", console.error);
+  ws.on("error", (err) => console.error(err));
 
   ws.on("open", () => {
     intervalID = setInterval(() => {
       console.log(`${new Date().toISOString()}: ${cursor}`);
-      fs.writeFile("cursor.txt", cursor.toString(), (err) => {
-        if (err) console.error(err);
-      });
+      fs.writeFile("cursor.txt", cursor.toString(), (err) => console.log(err));
     }, 60000);
   });
 
