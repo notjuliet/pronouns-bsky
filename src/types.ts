@@ -2,26 +2,20 @@ export interface EventStream {
   did: string;
   time_us: number;
   type: string;
-  commit: Commit;
-}
-
-export interface Commit {
-  rev: string;
-  type: string;
-  collection: string;
-  rkey: string;
-  record: Record;
-}
-
-export interface Record {
-  $type: string;
-  createdAt: string;
-  subject: Subject;
-}
-
-export interface Subject {
-  cid: string;
-  uri: string;
+  commit?: {
+    rev: string;
+    type: string;
+    collection: string;
+    rkey: string;
+    record: {
+      $type: string;
+      createdAt: string;
+      subject: {
+        cid: string;
+        uri: string;
+      };
+    };
+  };
 }
 
 export interface Label {
