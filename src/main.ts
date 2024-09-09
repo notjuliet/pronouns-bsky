@@ -33,8 +33,7 @@ const subscribe = async () => {
     const event: EventStream = JSON.parse(data.toString());
     cursor = event.time_us;
     if (
-      event.type.includes("com") &&
-      event.commit?.record?.subject?.uri?.includes(DID)
+      event.commit?.record?.subject?.uri?.includes(DID + "/app.bsky.feed.post")
     ) {
       label(event.did, event.commit.record.subject.uri.split("/").pop()!);
     }
