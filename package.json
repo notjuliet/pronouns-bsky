@@ -13,7 +13,7 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "@skyware/labeler": "^0.1.6-fix.1",
+    "@skyware/labeler": "^0.1.6-fix.2",
     "dotenv": "^16.4.5",
     "ws": "^8.18.0"
   }
