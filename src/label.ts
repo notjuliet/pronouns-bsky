@@ -40,7 +40,6 @@ export const label = async (did: string, rkey: string) => {
       })
       .then(() => console.log(`${timestamp}: Deleted labels for ${did}`));
   } else if (labels.size < LABEL_LIMIT && POSTS[rkey]) {
-    console.log(`${new Date().toISOString()}: `);
     await server
       .createLabel({ uri: did, val: POSTS[rkey] })
       .catch((err) => {
