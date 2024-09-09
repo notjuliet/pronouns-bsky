@@ -17,8 +17,7 @@ const subscribe = async () => {
 
   ws.on("open", () => {
     intervalID = setInterval(() => {
-      const timestamp = new Date().toISOString();
-      console.log(`${timestamp} cursor: ${cursor}`);
+      console.log(`${new Date().toISOString()} cursor: ${cursor}`);
       fs.writeFile("cursor.txt", cursor.toString(), (err) => {
         if (err) console.error(err);
       });

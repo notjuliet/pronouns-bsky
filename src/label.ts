@@ -31,7 +31,7 @@ export const label = async (did: string, rkey: string) => {
   }, new Set<string>());
 
   if (rkey.includes(DELETE)) {
-    console.log(`${new Date().toISOString()}: `);
+    process.stdout.write(`${new Date().toISOString()}: `);
     await server
       .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => {
