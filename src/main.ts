@@ -34,7 +34,7 @@ const subscribe = () => {
     cursor = event.time_us;
     if (
       event.type.includes("com") &&
-      event.commit?.record?.subject.uri.includes(DID)
+      event.commit?.record?.subject?.uri.includes(DID)
     ) {
       label(event.did, event.commit.record.subject.uri.split("/").pop()!);
     }
