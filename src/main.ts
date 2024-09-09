@@ -30,9 +30,8 @@ const subscribe = async () => {
     cursor = event.time_us;
     if (
       event.commit?.record?.subject?.uri?.includes(`${DID}/app.bsky.feed.post`)
-    ) {
+    )
       label(event.did, event.commit.record.subject.uri.split("/").pop()!);
-    }
   });
 };
 

@@ -12,11 +12,8 @@ import { LabelerServer } from "@skyware/labeler";
 const server = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
 
 server.start(PORT, (error, address) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log(`Labeler server listening on ${address}`);
-  }
+  if (error) console.error(error);
+  else console.log(`Labeler server listening on ${address}`);
 });
 
 export const label = async (did: string, rkey: string) => {
@@ -30,23 +27,17 @@ export const label = async (did: string, rkey: string) => {
     return set;
   }, new Set<string>());
 
-  const timestamp = new Date().toISOString();
+  const time = new Date().toISOString();
 
   if (rkey.includes(DELETE)) {
     await server
       .createLabels({ uri: did }, { negate: [...labels] })
-      .catch((err) => {
-        console.log(err);
-      })
-      .then(() => console.log(`${timestamp}: Deleted labels for ${did}`));
+      .catch((err) => console.log(err))
+      .then(() => console.log(`${time}: Deleted labels for ${did}`));
   } else if (labels.size < LABEL_LIMIT && POSTS[rkey]) {
     await server
       .createLabel({ uri: did, val: POSTS[rkey] })
-      .catch((err) => {
-        console.log(err);
-      })
-      .then(() =>
-        console.log(`${timestamp}: Labeled ${did} with ${POSTS[rkey]}`),
-      );
+      .catch((err) => console.log(err))
+      .then(() => console.log(`${time}: Labeled ${did} with ${POSTS[rkey]}`));
   }
 };
