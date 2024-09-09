@@ -30,14 +30,15 @@ export const label = async (did: string, rkey: string) => {
     return set;
   }, new Set<string>());
 
+  const timestamp = new Date().toISOString();
+
   if (rkey.includes(DELETE)) {
-    process.stdout.write(`${new Date().toISOString()}: `);
     await server
       .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => {
         console.log(err);
       })
-      .then(() => console.log(`Deleted labels for ${did}`));
+      .then(() => console.log(`${timestamp}: Deleted labels for ${did}`));
   } else if (labels.size < LABEL_LIMIT && POSTS[rkey]) {
     console.log(`${new Date().toISOString()}: `);
     await server
@@ -45,6 +46,8 @@ export const label = async (did: string, rkey: string) => {
       .catch((err) => {
         console.log(err);
       })
-      .then(() => console.log(`Labeled ${did} with ${POSTS[rkey]}`));
+      .then(() =>
+        console.log(`${timestamp}: Labeled ${did} with ${POSTS[rkey]}`),
+      );
   }
 };
