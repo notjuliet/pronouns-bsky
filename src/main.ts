@@ -4,7 +4,7 @@ import { EventStream } from "./types.js";
 import fs from "node:fs";
 import WebSocket from "ws";
 
-const subscribe = async () => {
+const subscribe = () => {
   let cursor = 0;
   let intervalID: NodeJS.Timeout;
   const cursorFile = fs.readFileSync("cursor.txt", "utf8");
