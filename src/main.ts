@@ -1,38 +1,37 @@
 import { label } from "./label.js";
-import { DID, RELAY } from "./constants.js";
-import { EventStream } from "./types.js";
+import { DID } from "./constants.js";
 import fs from "node:fs";
-import WebSocket from "ws";
+import { Jetstream } from "@skyware/jetstream";
+import { LikeRecord } from "./types.js";
 
-const subscribe = async () => {
-  let cursor = 0;
-  let intervalID: NodeJS.Timeout;
-  const cursorFile = fs.readFileSync("cursor.txt", "utf8");
-  const relay = cursorFile ? RELAY.concat("&cursor=", cursorFile) : RELAY;
-  const ws = new WebSocket(relay);
-  if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
+let cursor = 0;
+let intervalID: NodeJS.Timeout;
+const cursorFile = fs.readFileSync("cursor.txt", "utf8");
+if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
 
-  ws.on("error", (err) => console.error(err));
+const jetstream = new Jetstream({
+  wantedCollections: ["app.bsky.feed.like"],
+  cursor: cursorFile ?? 0,
+});
 
-  ws.on("open", () => {
-    intervalID = setInterval(() => {
-      console.log(`${new Date().toISOString()}: ${cursor}`);
-      fs.writeFile("cursor.txt", cursor.toString(), (err) => {
-        if (err) console.log(err);
-      });
-    }, 60000);
-  });
+jetstream.on("open", () => {
+  intervalID = setInterval(() => {
+    console.log(`${new Date().toISOString()}: ${cursor}`);
+    fs.writeFile("cursor.txt", cursor.toString(), (err) => {
+      if (err) console.log(err);
+    });
+  }, 60000);
+});
 
-  ws.on("close", () => clearInterval(intervalID));
+jetstream.on("error", (err) => console.error(err));
 
-  ws.on("message", (data) => {
-    const event: EventStream = JSON.parse(data.toString());
-    cursor = event.time_us;
-    if (
-      event.commit?.record?.subject?.uri?.includes(`${DID}/app.bsky.feed.post`)
-    )
-      label(event.did, event.commit.record.subject.uri.split("/").pop()!);
-  });
-};
+jetstream.on("close", () => clearInterval(intervalID));
 
-subscribe();
+jetstream.onCreate("app.bsky.feed.like", (event) => {
+  cursor = event.time_us;
+  const record = event.commit.record as LikeRecord;
+  if (record.subject?.uri?.includes(`${DID}/app.bsky.feed.post`))
+    label(event.did, record.subject.uri.split("/").pop()!);
+});
+
+jetstream.start();
