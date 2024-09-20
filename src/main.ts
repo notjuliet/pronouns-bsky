@@ -2,7 +2,7 @@ import { label } from "./label.js";
 import { DID } from "./constants.js";
 import fs from "node:fs";
 import { Jetstream } from "@skyware/jetstream";
-import { LikeRecord } from "./types.js";
+import { AppBskyFeedLike } from "@atcute/client/lexicons";
 
 let cursor = 0;
 let intervalID: NodeJS.Timeout;
@@ -29,7 +29,7 @@ jetstream.on("close", () => clearInterval(intervalID));
 
 jetstream.onCreate("app.bsky.feed.like", (event) => {
   cursor = event.time_us;
-  const record = event.commit.record as LikeRecord;
+  const record = event.commit.record as AppBskyFeedLike.Record;
   if (record.subject?.uri?.includes(`${DID}/app.bsky.feed.post`))
     label(event.did, record.subject.uri.split("/").pop()!);
 });

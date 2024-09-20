@@ -1,3 +1,4 @@
+import { ComAtprotoLabelDefs } from "@atcute/client/lexicons";
 import {
   DID,
   PORT,
@@ -6,7 +7,6 @@ import {
   SIGNING_KEY,
   DELETE,
 } from "./constants.js";
-import { Label } from "./types.js";
 import { LabelerServer } from "@skyware/labeler";
 
 const server = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
@@ -18,7 +18,10 @@ server.start(PORT, (error, address) => {
 
 export const label = async (did: string, rkey: string) => {
   const query = server.db
-    .prepare<unknown[], Label>(`SELECT * FROM labels WHERE uri = ?`)
+    .prepare<
+      unknown[],
+      ComAtprotoLabelDefs.Label
+    >(`SELECT * FROM labels WHERE uri = ?`)
     .all(did);
 
   const labels = query.reduce((set, label) => {

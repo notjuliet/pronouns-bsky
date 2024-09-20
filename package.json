@@ -11,6 +11,8 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "@atcute/bluesky": "^1.0.6",
+    "@atcute/client": "^2.0.1",
     "@skyware/jetstream": "^0.1.3",
     "@skyware/labeler": "^0.1.7",
     "dotenv": "^16.4.5"
