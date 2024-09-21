@@ -1,5 +1,5 @@
 import { label } from "./label.js";
-import { DID } from "./constants.js";
+import { DID, URL } from "./constants.js";
 import fs from "node:fs";
 import { Jetstream } from "@skyware/jetstream";
 import { AppBskyFeedLike } from "@atcute/client/lexicons";
@@ -9,6 +9,7 @@ const cursorFile = fs.readFileSync("cursor.txt", "utf8");
 if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
 
 const jetstream = new Jetstream({
+  endpoint: URL,
   wantedCollections: ["app.bsky.feed.like"],
   cursor: cursorFile ?? 0,
 });
@@ -16,7 +17,6 @@ const jetstream = new Jetstream({
 jetstream.on("open", () => {
   intervalID = setInterval(() => {
     if (jetstream.cursor) {
-      console.log(`${new Date().toISOString()}: ${jetstream.cursor}`);
       fs.writeFile("cursor.txt", jetstream.cursor.toString(), (err) => {
         if (err) console.log(err);
       });
