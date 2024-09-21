@@ -4,7 +4,6 @@ import fs from "node:fs";
 import { Jetstream } from "@skyware/jetstream";
 import { AppBskyFeedLike } from "@atcute/client/lexicons";
 
-let cursor = 0;
 let intervalID: NodeJS.Timeout;
 const cursorFile = fs.readFileSync("cursor.txt", "utf8");
 if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
@@ -16,10 +15,12 @@ const jetstream = new Jetstream({
 
 jetstream.on("open", () => {
   intervalID = setInterval(() => {
-    console.log(`${new Date().toISOString()}: ${cursor}`);
-    fs.writeFile("cursor.txt", cursor.toString(), (err) => {
-      if (err) console.log(err);
-    });
+    if (jetstream.cursor) {
+      console.log(`${new Date().toISOString()}: ${jetstream.cursor}`);
+      fs.writeFile("cursor.txt", jetstream.cursor.toString(), (err) => {
+        if (err) console.log(err);
+      });
+    }
   }, 60000);
 });
 
@@ -28,7 +29,6 @@ jetstream.on("error", (err) => console.error(err));
 jetstream.on("close", () => clearInterval(intervalID));
 
 jetstream.onCreate("app.bsky.feed.like", (event) => {
-  cursor = event.time_us;
   const record = event.commit.record as AppBskyFeedLike.Record;
   if (record.subject?.uri?.includes(`${DID}/app.bsky.feed.post`))
     label(event.did, record.subject.uri.split("/").pop()!);
