@@ -1,4 +1,4 @@
-import { label_video } from "./label.js";
+import { labelVideo } from "./label.js";
 import { URL } from "./constants.js";
 import { Jetstream } from "@skyware/jetstream";
 
@@ -15,7 +15,9 @@ jetstream.onCreate("app.bsky.feed.post", (event) => {
     (event.commit.record.embed?.$type === "app.bsky.embed.recordWithMedia" &&
       event.commit.record.embed.media.$type === "app.bsky.embed.video")
   )
-    label_video(`at://${event.did}/app.bsky.feed.post/${event.commit.rkey}`);
+    labelVideo(
+      `at://${event.did}/${event.commit.collection}/${event.commit.rkey}`,
+    );
 });
 
 jetstream.start();

@@ -8,10 +8,9 @@ server.start(PORT, (error, address) => {
   else console.log(`Labeler server listening on ${address}`);
 });
 
-export const label_video = async (uri: string) => {
-  const time = new Date().toISOString();
+export const labelVideo = async (uri: string) => {
   await server
     .createLabel({ uri: uri, val: "video" })
     .catch((err) => console.log(err))
-    .then(() => console.log(`${time}: Labeled video: ${uri}`));
+    .then(() => console.log(`${new Date().toISOString()}: Labeled ${uri}`));
 };
