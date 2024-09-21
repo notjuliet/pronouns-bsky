@@ -9,9 +9,7 @@ DID = "did:plc:xxx"
 SIGNING_KEY = "xxx"
 ```
 
-A `cursor.txt` also needs to be present. It can be left empty, and will update the file every minute with a new cursor.
-
-Create labels with `npx @skyware/labeler label add` and edit `src/constants.ts` with the related post rkeys and label IDs.
+Create labels with `npx @skyware/labeler label add`.
 
 The server has to be reachable outside your local network using the URL you provided during the account setup (typically, using a reverse proxy such as [Caddy](https://caddyserver.com/)):
 
