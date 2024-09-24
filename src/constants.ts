@@ -61,4 +61,9 @@ export const POSTS: Record<string, string> = {
   "3l2xlzt6v5z2x": "rat-rats",
   "3l2zv7xcpq62u": "shark-sharks",
   "3l32xb7nvgh2x": "proper-nouns",
+  "3l4wb5cvjnz2e": "she-they",
+  "3l4wb5gm6lp2o": "he-they",
+  "3l4wb5kvvrm2l": "she-it",
+  "3l4wb5pwzzq2j": "he-it",
+  "3l4wb5uqrvs26": "they-it",
 };
