@@ -16,7 +16,7 @@ server.start(PORT, (error, address) => {
   else console.log(`Labeler server listening on ${address}`);
 });
 
-export const label = async (did: string, rkey: string) => {
+export const label = (did: string, rkey: string) => {
   const query = server.db
     .prepare<
       unknown[],
@@ -33,12 +33,12 @@ export const label = async (did: string, rkey: string) => {
   const time = new Date().toISOString();
 
   if (rkey.includes(DELETE)) {
-    await server
+    server
       .createLabels({ uri: did }, { negate: [...labels] })
       .catch((err) => console.log(err))
       .then(() => console.log(`${time}: Deleted labels for ${did}`));
   } else if (labels.size < LABEL_LIMIT && POSTS[rkey]) {
-    await server
+    server
       .createLabel({ uri: did, val: POSTS[rkey] })
       .catch((err) => console.log(err))
       .then(() => console.log(`${time}: Labeled ${did} with ${POSTS[rkey]}`));
