@@ -11,7 +11,7 @@ if (cursorFile) console.log(`Initiate firehose at cursor ${cursorFile}`);
 const jetstream = new Jetstream({
   endpoint: URL,
   wantedCollections: ["app.bsky.feed.like"],
-  cursor: cursorFile,
+  cursor: Number(cursorFile),
 });
 
 jetstream.on("open", () => {
