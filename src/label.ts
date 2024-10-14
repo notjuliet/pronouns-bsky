@@ -18,11 +18,8 @@ server.start(PORT, (error, address) => {
 
 export const label = (did: string, rkey: string) => {
   const query = server.db
-    .prepare<
-      unknown[],
-      ComAtprotoLabelDefs.Label
-    >(`SELECT * FROM labels WHERE uri = ?`)
-    .all(did);
+    .prepare<string[]>(`SELECT * FROM labels WHERE uri = ?`)
+    .all(did) as ComAtprotoLabelDefs.Label[];
 
   const labels = query.reduce((set, label) => {
     if (!label.neg) set.add(label.val);
@@ -30,17 +27,15 @@ export const label = (did: string, rkey: string) => {
     return set;
   }, new Set<string>());
 
-  const time = new Date().toISOString();
-
-  if (rkey.includes(DELETE)) {
-    server
-      .createLabels({ uri: did }, { negate: [...labels] })
-      .catch((err) => console.log(err))
-      .then(() => console.log(`${time}: Deleted labels for ${did}`));
-  } else if (labels.size < LABEL_LIMIT && POSTS[rkey]) {
-    server
-      .createLabel({ uri: did, val: POSTS[rkey] })
-      .catch((err) => console.log(err))
-      .then(() => console.log(`${time}: Labeled ${did} with ${POSTS[rkey]}`));
+  try {
+    if (rkey.includes(DELETE)) {
+      server.createLabels({ uri: did }, { negate: [...labels] });
+      console.log(`${new Date().toISOString()} Deleted labels: ${did}`);
+    } else if (labels.size < LABEL_LIMIT && POSTS[rkey]) {
+      server.createLabel({ uri: did, val: POSTS[rkey] });
+      console.log(`${new Date().toISOString()} Labeled ${did}: ${POSTS[rkey]}`);
+    }
+  } catch (err) {
+    console.error(err);
   }
 };
