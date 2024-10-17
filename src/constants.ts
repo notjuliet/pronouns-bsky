@@ -1,10 +1,10 @@
 import "dotenv/config";
 
 export const DID = process.env.DID ?? "";
-export const SIGNING_KEY = process.env.SIGNING_KEY ?? "";
+export const SIGN_KEY = process.env.SIGNING_KEY ?? "";
 export const PORT = Number(process.env.PORT ?? 4001);
 export const URL = process.env.URL ?? "wss://jetstream.atproto.tools/subscribe";
-export const LABEL_LIMIT = 4;
+export const MAXLABELS = 4;
 export const DELETE = "3kwsqucto3j2a";
 export const POSTS: Record<string, string> = {
   "3kwss4ldkwd2j": "they",

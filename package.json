@@ -6,7 +6,6 @@
     "start": "npx tsx src/main.ts"
   },
   "devDependencies": {
-    "@atcute/bluesky": "^1.0.6",
     "@types/node": "^22.7.5",
     "typescript": "^5.5.3"
   },
