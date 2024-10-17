@@ -68,4 +68,6 @@ export const POSTS: Record<string, string> = {
   "3l4wb5uqrvs26": "they-it",
   "3l6q32zgber2l": "look-at-pin",
   "3l6q33okbuy26": "pup-puppy",
+  "3l6q63u7uwa2m": "star-stars",
+  "3l6q64ary322r": "plush-plushie",
 };
