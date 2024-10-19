@@ -70,4 +70,13 @@ export const POSTS: Record<string, string> = {
   "3l6q33okbuy26": "pup-puppy",
   "3l6q63u7uwa2m": "star-stars",
   "3l6q64ary322r": "plush-plushie",
+  "3l6uilqh2ql2i": "panda-pandas",
+  "3l6uimcattv2m": "dragon-dragons",
+  "3l6uimwokp52a": "plant-plants",
+  "3l6uinheojn2r": "flower-flowers",
+  "3l6uinwqct22l": "tiger-tigers",
+  "3l6uioemrp72o": "shi-hir",
+  "3l6uiorzliu2r": "zhe-zhem",
+  "3l6uip6xzv32z": "xey-xem",
+  "3l6uiqa6cnw2a": "mirror",
 };
