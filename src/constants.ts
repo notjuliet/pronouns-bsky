@@ -80,4 +80,10 @@ export const POSTS: Record<string, string> = {
   "3l6uip6xzv32z": "xey-xem",
   "3l6uiqa6cnw2a": "mirror",
   "3l6uszrrevl25": "hy-hym",
+  "3l6x3paoy7m2d": "fox-foxs",
+  "3l6x3pjoba62r": "fen-fens",
+  "3l6ygalsovn2r": "it-we",
+  "3l6ygazurdu2a": "vamp-vamps",
+  "3l6ygbbsbo32h": "ze-zir",
+  "3l6ygbkze3a25": "sea-seas",
 };
