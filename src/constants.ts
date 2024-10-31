@@ -93,4 +93,7 @@ export const POSTS: Record<string, string> = {
   "3l74kda4gns25": "it-they",
   "3l7a5x37jtv2r": "she-he",
   "3l7a5xcmdry25": "he-she",
+  "3l7tljdqm6s2s": "e-h-hs",
+  "3l7tljns6a22s": "atp-adp",
+  "3l7tlk57iec2s": "cat-cats",
 };
