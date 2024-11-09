@@ -96,4 +96,6 @@ export const POSTS: Record<string, string> = {
   "3l7tljdqm6s2s": "e-h-hs",
   "3l7tljns6a22s": "atp-adp",
   "3l7tlk57iec2s": "cat-cats",
+  "3laiylfnutc24": "moo-moocow",
+  "3laiym4vzdc24": "any-neopronouns",
 };
