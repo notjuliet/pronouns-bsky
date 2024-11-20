@@ -31,6 +31,7 @@ export const METANOUNS: Record<string, string> = {
   "look at pinned": "3l6q32zgber2l",
   mirrorpronominal: "3l6uiqa6cnw2a",
   "any neopronouns": "3laiym4vzdc24",
+  "third person": "3lbfr4mdkck2e",
 };
 
 export const NEOPRONOUNS: Record<string, string> = {
