@@ -105,4 +105,9 @@ export const POSTS: Record<string, string> = {
   "3lb5mwni6yk25": "moon-moons",
   "3lb5mwzhrfs25": "bear-bears",
   "3lbfr4mdkck2e": "third-person",
+  "3lbxle2gjb22f": "doll-dolls",
+  "3lbxlevi5hc2f": "xi-xir",
+  "3lbxlgslduc2f": "critter-creature",
+  "3lbxlicjjmc2f": "vi-vir",
+  "3lbxmhfq3hc24": "strawb-strawbs",
 };

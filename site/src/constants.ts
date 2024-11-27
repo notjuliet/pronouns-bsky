@@ -101,4 +101,9 @@ export const NEOPRONOUNS: Record<string, string> = {
   "hoshi/hoshi's": "3lb5mwai4k225",
   "moon/moons": "3lb5mwni6yk25",
   "bear/bears": "3lb5mwzhrfs25",
+  "doll/dolls": "3lbxle2gjb22f",
+  "xi/xir": "3lbxlevi5hc2f",
+  "critter/creature": "3lbxlgslduc2f",
+  "vi/vir": "3lbxlicjjmc2f",
+  "strawb/strawbs": "3lbxmhfq3hc24",
 };
