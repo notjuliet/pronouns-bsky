@@ -6,11 +6,11 @@
     "start": "npx tsx src/main.ts"
   },
   "devDependencies": {
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.10.1",
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "@skyware/jetstream": "^0.2.0",
+    "@skyware/jetstream": "^0.2.1",
     "@skyware/labeler": "^0.2.0",
     "dotenv": "^16.4.5"
   },

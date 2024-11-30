@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@skyware/jetstream':
-        specifier: ^0.2.0
-        version: 0.2.0(@atcute/client@2.0.6)
+        specifier: ^0.2.1
+        version: 0.2.1(@atcute/client@2.0.6)
       '@skyware/labeler':
         specifier: ^0.2.0
         version: 0.2.0
@@ -19,8 +19,8 @@ importers:
         version: 16.4.5
     devDependencies:
       '@types/node':
-        specifier: ^22.10.0
-        version: 22.10.0
+        specifier: ^22.10.1
+        version: 22.10.1
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -134,15 +134,15 @@ packages:
     resolution: {integrity: sha512-pq5D8h10hHBjyqX+cfBm0i8JUXJ0UhczFc4r74zbuT9XgewFo2E3J1cOaGtdZynILNmQ685YWGzGE1Zv6io50w==}
     engines: {node: ^14.21.3 || >=16}
 
-  '@skyware/jetstream@0.2.0':
-    resolution: {integrity: sha512-nydEVe47fc3Cn9yLjk0Tos05pB4PYVOXno8RKlf0QguJUF48ASKx9xA4jUHqEI1dk2oHuHWoXpo9ic+RIgk6yw==}
+  '@skyware/jetstream@0.2.1':
+    resolution: {integrity: sha512-qmQkBnMYG3+XBTLUDUKTWMS0QpwCFSZh66fvQRn+xEqUQ2CXB2ELo4El0tgVvdT4+glk4nfzVG45L6Op9VURow==}
 
   '@skyware/labeler@0.2.0':
     resolution: {integrity: sha512-5Xsjly8Crvi+vILmFkObNs5y/FeNj/mIztcm1qfNafUzwv9n9B7O5MQmmg3aZfnalmQWsYfs2BgVlaBBBni5bw==}
     hasBin: true
 
-  '@types/node@22.10.0':
-    resolution: {integrity: sha512-XC70cRZVElFHfIUB40FgZOBbgJYFKKMa5nb9lxcwYstFG/Mi+/Y0bGS+rs6Dmhmkpq4pnNiLiuZAbc02YCOnmA==}
+  '@types/node@22.10.1':
+    resolution: {integrity: sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==}
 
   '@types/ws@8.5.13':
     resolution: {integrity: sha512-osM/gWBTPKgHV8XkTunnegTRIsvF6owmf5w+JtAfOw472dptdm0dlGv4xCt6GwQRcC2XVOvvRE/0bAoQcL2QkA==}
@@ -274,6 +274,7 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   light-my-request@5.14.0:
@@ -548,7 +549,7 @@ snapshots:
 
   '@noble/hashes@1.6.1': {}
 
-  '@skyware/jetstream@0.2.0(@atcute/client@2.0.6)':
+  '@skyware/jetstream@0.2.1(@atcute/client@2.0.6)':
     dependencies:
       '@atcute/bluesky': 1.0.9(@atcute/client@2.0.6)
       partysocket: 1.0.2
@@ -572,13 +573,13 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@types/node@22.10.0':
+  '@types/node@22.10.1':
     dependencies:
       undici-types: 6.20.0
 
   '@types/ws@8.5.13':
     dependencies:
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
 
   abstract-logging@2.0.1: {}
 
