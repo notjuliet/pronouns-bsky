@@ -15,8 +15,8 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0
       dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
+        specifier: ^16.4.7
+        version: 16.4.7
     devDependencies:
       '@types/node':
         specifier: ^22.10.1
@@ -188,8 +188,8 @@ packages:
     resolution: {integrity: sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==}
     engines: {node: '>=8'}
 
-  dotenv@16.4.5:
-    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
 
   duplexify@4.1.3:
@@ -230,8 +230,8 @@ packages:
   fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
 
-  fastify@4.28.1:
-    resolution: {integrity: sha512-kFWUtpNr4i7t5vY2EJPCN2KgMVpuqfU4NjnJNCgiNB900oiDeYqaNDRcAfeBbOF5hGixixxcKnOU4KN9z6QncQ==}
+  fastify@4.29.0:
+    resolution: {integrity: sha512-MaaUHUGcCgC8fXQDsDtioaCcag1fmPJ9j64vAKunqZF4aSub040ZGi/ag8NGE2714yREPOKZuHCfpPzuUD3UQQ==}
 
   fastq@1.17.1:
     resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
@@ -566,7 +566,7 @@ snapshots:
       '@libsql/client': 0.14.0
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.1
-      fastify: 4.28.1
+      fastify: 4.29.0
       prompts: 2.4.2
       uint8arrays: 5.1.0
     transitivePeerDependencies:
@@ -611,7 +611,7 @@ snapshots:
 
   detect-libc@2.0.2: {}
 
-  dotenv@16.4.5: {}
+  dotenv@16.4.7: {}
 
   duplexify@4.1.3:
     dependencies:
@@ -654,7 +654,7 @@ snapshots:
 
   fastify-plugin@4.5.1: {}
 
-  fastify@4.28.1:
+  fastify@4.29.0:
     dependencies:
       '@fastify/ajv-compiler': 3.6.0
       '@fastify/error': 3.4.1
