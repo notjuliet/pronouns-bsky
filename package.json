@@ -6,7 +6,7 @@
     "start": "npx tsx src/main.ts"
   },
   "devDependencies": {
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {

@@ -124,4 +124,7 @@ export const POSTS: Record<string, string> = {
   "3lclctffbhc2n": "xe-xer",
   "3lclcwgyqms2j": "vae-vaem",
   "3lclcwq4lik2j": "spoot-spoots",
+  "3ld2lwdi2ak2o": "fae-faem",
+  "3ld2lwi6dss2o": "dem-dems",
+  "3ld2lwozoek2o": "thorn-ey-em",
 };

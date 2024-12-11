@@ -120,4 +120,7 @@ export const NEOPRONOUNS: Record<string, string> = {
   "xe/xer": "3lclctffbhc2n",
   "vae/vaem": "3lclcwgyqms2j",
   "spoot/spoots": "3lclcwq4lik2j",
+  "fae/faem": "3ld2lwdi2ak2o",
+  "dem/dems": "3ld2lwi6dss2o",
+  "þey/þem": "3ld2lwozoek2o",
 };
