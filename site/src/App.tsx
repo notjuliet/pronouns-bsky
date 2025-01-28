@@ -5,8 +5,8 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 1;
 const basePostUrl =
   isSafari && isTouchDevice
-    ? "bluesky:///profile/pronouns.diy/post/"
-    : "https://bsky.app/profile/pronouns.diy/post/";
+    ? "bluesky:///profile/did:plc:wkoofae5uytcm7bjncmev6n6/post/"
+    : "https://bsky.app/profile/did:plc:wkoofae5uytcm7bjncmev6n6/post/";
 
 const [search, setSearch] = createSignal("");
 
